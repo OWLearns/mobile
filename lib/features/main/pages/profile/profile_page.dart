@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -197,6 +199,62 @@ class _ProfilePageState extends State<ProfilePage> {
                     fontWeight: FontWeight.w700,
                     fontSize: 16,
                   ),
+                ),
+                const SizedBox(height: 10),
+                const Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Course Completed"),
+                        Text("Material Completed"),
+                        Text("Quiz Completed"),
+                      ],
+                    ),
+                    SizedBox(width: 15),
+                    Column(
+                      children: [
+                        Text(
+                          "8",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "8",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "8",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 40),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Topic Completed"),
+                        Text("Daily Streak"),
+                        Text("Mission Completed"),
+                      ],
+                    ),
+                    SizedBox(width: 15),
+                    Column(
+                      children: [
+                        Text(
+                          "8",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "8",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "8",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 15),
                 const Text(
