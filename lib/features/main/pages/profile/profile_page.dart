@@ -63,17 +63,27 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ],
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height: 40),
           Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   children: [
-                    Text('Sophia Anderson'),
-                    SizedBox(width: 20),
-                    Text('Image Level 78'),
+                    const Text(
+                      'Sophia Anderson',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Image.asset(
+                      'assets/level.png',
+                      width: 30,
+                      height: 30,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 15),

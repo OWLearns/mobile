@@ -70,6 +70,7 @@ flutter:
     - assets/nav/leaderboard_active.png
     - assets/nav/quiz_active.png
     - assets/nav/profile_active.png
+    - assets/level.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
