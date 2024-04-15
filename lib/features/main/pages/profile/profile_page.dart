@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:mobile/shared/widgets/card.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -23,8 +22,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.15,
                 decoration: const BoxDecoration(
-                  color: Colors.blue,
-                ),
+                    gradient: LinearGradient(
+                        colors: [Color(0xff333A73), Color(0xff606DD9)])),
               ),
               Positioned(
                 left: MediaQuery.of(context).size.width * 0.05,
@@ -48,7 +47,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: 1, color: Colors.blue),
+                    border:
+                        Border.all(width: 1, color: const Color(0xff387ADF)),
                   ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: const Text(
                     'Edit Profile',
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Color(0xff387ADF),
                       fontSize: 12,
                     ),
                   ),
@@ -98,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Row(
                   children: [
                     Text("Image Award "),
-                    Text(" No.1 Award Achiever"),
+                    Text(" Jakarta, Indonesia"),
                   ],
                 ),
                 const SizedBox(height: 15),
@@ -262,6 +262,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      CourseCard(),
+                      SizedBox(width: 10),
+                      CourseCard(),
+                    ],
                   ),
                 ),
               ],
