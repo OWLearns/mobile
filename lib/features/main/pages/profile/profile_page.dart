@@ -269,9 +269,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      CourseCard(),
+                      CourseCard(
+                        manyTopics: '6',
+                        image: 'pmLogo',
+                        label: 'Project',
+                        label2: 'Manager',
+                      ),
                       SizedBox(width: 10),
-                      CourseCard(),
+                      CourseCard(
+                        manyTopics: '7',
+                        image: 'uiLogo',
+                        label: 'UI/UX',
+                        label2: 'Design',
+                      ),
                     ],
                   ),
                 ),

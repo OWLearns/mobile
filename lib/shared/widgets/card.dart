@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CourseCard extends StatelessWidget {
-  const CourseCard({super.key});
+  final String manyTopics;
+  final String image;
+  final String label;
+  final String label2;
+  const CourseCard(
+      {super.key,
+      required this.manyTopics,
+      required this.image,
+      required this.label,
+      required this.label2});
 
   @override
   Widget build(BuildContext context) {
@@ -9,8 +18,8 @@ class CourseCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.5,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        gradient:
-            const LinearGradient(colors: [Color(0xff606DD9), Color(0xff387ADF)]),
+        gradient: const LinearGradient(
+            colors: [Color(0xff606DD9), Color(0xff387ADF)]),
       ),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -32,7 +41,7 @@ class CourseCard extends StatelessWidget {
                       children: [
                         Image.asset('assets/card/bookLogo.png'),
                         const SizedBox(width: 5),
-                        const Text('6 Topics'),
+                        Text("$manyTopics topics"),
                       ],
                     ),
                   ),
@@ -43,22 +52,26 @@ class CourseCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Image.asset('assets/card/pmLogo.png'),
+                Image.asset(
+                  'assets/card/$image.png',
+                  height: 130,
+                  width: 130,
+                ),
               ],
             ),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Project',
-                  style: TextStyle(
+                  label,
+                  style: const TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
                 Text(
-                  'Manager',
-                  style: TextStyle(
+                  label2,
+                  style: const TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
