@@ -116,7 +116,7 @@ class _CoursePageState extends State<CoursePage> {
             ),
             Expanded(
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.1,
+                // height: MediaQuery.of(context).size.height * 0.1,
                 padding: const EdgeInsets.all(10),
                 decoration: const BoxDecoration(
                   color: Colors.white,
