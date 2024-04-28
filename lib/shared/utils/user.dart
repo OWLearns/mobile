@@ -23,7 +23,6 @@ class UserAccess {
       ),
     );
     final bodyResponse = jsonDecode(response.body);
-    print(bodyResponse['profile'][0]);
     if (response.statusCode == 200) {
       final userProfile = bodyResponse['profile'][0];
       username = userProfile['username'].toString();

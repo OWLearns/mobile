@@ -17,7 +17,7 @@ class CourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 5),
+      padding: const EdgeInsets.only(right: 6),
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(

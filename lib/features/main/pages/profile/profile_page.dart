@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/shared/themes/color.dart';
+import 'package:mobile/shared/utils/token_handler.dart';
 import 'package:mobile/shared/utils/user.dart';
 import 'package:mobile/shared/widgets/card.dart';
 
@@ -11,6 +12,19 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    getUserInformation();
+  }
+
+  void getUserInformation() async {
+    final tokenJWT = await Token.getToken();
+    UserAccess.getUser(tokenJWT!).then((_) {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,7 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         //   height: 30,
                         // ),
                         Text(
-                          '${UserAccess.level}',
+                          UserAccess.level,
                         )
                       ],
                     ),
@@ -258,19 +272,19 @@ class _ProfilePageState extends State<ProfilePage> {
                         Column(
                           children: [
                             Text(
-                              '${UserAccess.courseComplete}',
+                              UserAccess.courseComplete,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              '${UserAccess.materialComplete}',
+                              UserAccess.materialComplete,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              '${UserAccess.quizComplete}',
+                              UserAccess.quizComplete,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -290,13 +304,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         Column(
                           children: [
                             Text(
-                              '${UserAccess.topicComplete}',
+                              UserAccess.topicComplete,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              '${UserAccess.quizPoint}',
+                              UserAccess.quizPoint,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
