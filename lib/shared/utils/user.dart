@@ -5,6 +5,12 @@ import 'package:mobile/shared/utils/token_handler.dart';
 
 class UserAccess {
   static String username = '';
+  static String level = '0';
+  static String quizPoint = '0';
+  static String courseComplete = '0';
+  static String materialComplete = '0';
+  static String quizComplete = '0';
+  static String topicComplete = '0';
 
   static getUser(String accessToken) async {
     final response = await http.post(
@@ -17,8 +23,16 @@ class UserAccess {
       ),
     );
     final bodyResponse = jsonDecode(response.body);
+    print(bodyResponse);
     if (response.statusCode == 200) {
-      username = bodyResponse['profile'][0]['username'];
+      final userProfile = bodyResponse['profile']['0'];
+      username = userProfile['username'];
+      level = userProfile['level'];
+      quizPoint = userProfile['quiz_point'];
+      courseComplete = userProfile['course_completed'];
+      materialComplete = userProfile['materials_completed'];
+      quizComplete = userProfile['materials_completed'];
+      topicComplete = userProfile['topic_completed'];
     }
   }
 

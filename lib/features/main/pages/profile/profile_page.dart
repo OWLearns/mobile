@@ -121,11 +121,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        Image.asset(
-                          'assets/level.png',
-                          width: 30,
-                          height: 30,
-                        ),
+                        // Image.asset(
+                        //   'assets/level.png',
+                        //   width: 30,
+                        //   height: 30,
+                        // ),
+                        Text(
+                          '${UserAccess.level}',
+                        )
                       ],
                     ),
                     const SizedBox(height: 15),
@@ -241,9 +244,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Row(
+                    Row(
                       children: [
-                        Column(
+                        const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Course Completed"),
@@ -251,44 +254,54 @@ class _ProfilePageState extends State<ProfilePage> {
                             Text("Quiz Completed"),
                           ],
                         ),
-                        SizedBox(width: 15),
+                        const SizedBox(width: 15),
                         Column(
                           children: [
                             Text(
-                              "8",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              '${UserAccess.courseComplete}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Text(
-                              "8",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              '${UserAccess.materialComplete}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Text(
-                              "8",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              '${UserAccess.quizComplete}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
-                        SizedBox(width: 40),
-                        Column(
+                        const SizedBox(width: 40),
+                        const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Topic Completed"),
-                            Text("Daily Streak"),
+                            Text("Quiz Points"),
                             Text("Mission Completed"),
                           ],
                         ),
-                        SizedBox(width: 15),
+                        const SizedBox(width: 15),
                         Column(
                           children: [
                             Text(
-                              "8",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              '${UserAccess.topicComplete}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Text(
-                              "8",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              '${UserAccess.quizPoint}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            Text(
+                            const Text(
                               "8",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
