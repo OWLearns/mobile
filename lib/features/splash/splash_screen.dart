@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/shared/utils/token_handler.dart';
 import '../../shared/widgets/background.dart';
 import '../../shared/utils/supabase.dart';
+import '../../shared/utils/user.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,7 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
     final session = SupabaseManager.supabase.auth.currentSession;
     if (session != null) {
-      Navigator.of(context).pushReplacementNamed('/main');
+      Token.getToken()
+          .then((value) => UserAccess.getUser(value!))
+          .then((_) => Navigator.of(context).pushReplacementNamed('/main'));
     } else {
       Navigator.of(context).pushReplacementNamed('/login');
     }

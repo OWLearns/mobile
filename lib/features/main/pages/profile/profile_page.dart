@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/shared/themes/color.dart';
+import 'package:mobile/shared/utils/user.dart';
 import 'package:mobile/shared/widgets/card.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -20,12 +21,17 @@ class _ProfilePageState extends State<ProfilePage> {
               Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [Color(0xff333A73), Color(0xff606DD9)])),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                  ),
+                  Positioned(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.15,
+                      decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [Color(0xff333A73), Color(0xff606DD9)])),
+                    ),
                   ),
                   Positioned(
                     left: MediaQuery.of(context).size.width * 0.05,
@@ -46,28 +52,60 @@ class _ProfilePageState extends State<ProfilePage> {
                   Positioned(
                     top: MediaQuery.of(context).size.height * 0.16,
                     right: MediaQuery.of(context).size.width * 0.05,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                            width: 1, color: const Color(0xff387ADF)),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      child: const Text(
-                        'Edit Profile',
-                        style: TextStyle(
-                          color: Color(0xff387ADF),
-                          fontSize: 12,
+                    child: Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                                width: 1, color: const Color(0xff387ADF)),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          child: const Text(
+                            'Edit Profile',
+                            style: TextStyle(
+                              color: Color(0xff387ADF),
+                              fontSize: 12,
+                            ),
+                          ),
                         ),
-                      ),
+                        const SizedBox(width: 5),
+                        InkWell(
+                          onTap: () {
+                            UserAccess.userLogOut().then((_) {
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/login');
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                width: 1,
+                                color: Colors.red,
+                              ),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                            child: const Text(
+                              'Log Out',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 40),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -75,9 +113,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Row(
                       children: [
-                        const Text(
-                          'Sophia Anderson',
-                          style: TextStyle(
+                        Text(
+                          UserAccess.username,
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),

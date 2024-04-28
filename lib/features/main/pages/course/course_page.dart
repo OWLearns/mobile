@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/features/main/pages/course/course_specific.dart';
+import 'package:mobile/features/main/pages/course/course_specific_page.dart';
 import 'package:mobile/shared/themes/color.dart';
 import 'package:mobile/shared/widgets/card.dart';
 import 'package:mobile/shared/widgets/search.dart';

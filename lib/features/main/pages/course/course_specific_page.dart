@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:mobile/features/main/pages/course/topic_page.dart';
 import '../../../../shared/themes/color.dart';
 
 class CourseSpecificPage extends StatefulWidget {
@@ -144,32 +144,41 @@ class _CourseSpecificPageState extends State<CourseSpecificPage> {
   }
 
   Widget cardTopic() {
-    return Container(
-      width: 130,
-      height: 160,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(
-          15,
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const TopicPage(),
+          ),
+        );
+      },
+      child: Container(
+        width: 130,
+        height: 160,
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(
+            15,
+          ),
         ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/card/pmLogo.png',
-            width: 120,
-            height: 70,
-          ),
-          const SizedBox(height: 10),
-          const Text(
-            "Introduction To UX Research",
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/card/pmLogo.png',
+              width: 120,
+              height: 70,
             ),
-          ),
-        ],
+            const SizedBox(height: 10),
+            const Text(
+              "Introduction To UX Research",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

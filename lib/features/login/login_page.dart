@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/shared/utils/token_handler.dart';
 import 'package:mobile/shared/widgets/background.dart';
 import 'login_model.dart';
 import '../../shared/widgets/text_field.dart';
+import '../../shared/utils/user.dart';
 
 class LoginPage extends StatefulWidget {
   final String message;
@@ -21,7 +23,10 @@ class _LoginPageState extends State<LoginPage> {
     LoginModel.loginEmail(emailController.text, passwordController.text)
         .then((value) {
       if (value['status'] == "success") {
-        Navigator.of(context).pushReplacementNamed('/main');
+        Token.getToken().then((value) {
+          print(value);
+          UserAccess.getUser(value!);
+        }).then((_) => Navigator.of(context).pushReplacementNamed('/main'));
       } else {
         setState(() {
           errorText = value['message'];

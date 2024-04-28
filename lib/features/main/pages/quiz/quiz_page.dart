@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/shared/themes/color.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
@@ -11,6 +12,7 @@ class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: owlBase,
       body: Text('Quiz'),
     );
   }

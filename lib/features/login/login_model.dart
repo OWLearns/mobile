@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:mobile/shared/utils/token_handler.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../shared/utils/supabase.dart';
@@ -20,10 +21,9 @@ class LoginModel {
 
     if (response.statusCode == 200) {
       final session = bodyResponse['session'];
-
       final refreshToken = session['refresh_token'];
-
       await SupabaseManager.supabase.auth.setSession(refreshToken);
+      await Token.setToken(session['access_token']);
     }
 
     return bodyResponse;
@@ -54,7 +54,13 @@ class LoginModel {
         int endIndex = link.indexOf("&token_type");
         String refreshToken = link.substring(startIndex, endIndex).trim();
 
+        startIndex = link.indexOf("access_token=") + "access_token=".length;
+        endIndex = link.indexOf("&expires_in");
+        String accessToken = link.substring(startIndex, endIndex).trim();
+
+        Token.setToken(accessToken);
         SupabaseManager.supabase.auth.setSession(refreshToken);
+
         return true;
       }
 
