@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/shared/themes/color.dart';
+import 'package:mobile/features/main/pages/course/topic_model.dart';
+import '../../../../shared/themes/color.dart';
 
 class TopicPage extends StatefulWidget {
-  const TopicPage({super.key});
+  final int id;
+  final String nameCourse;
+  const TopicPage({super.key, required this.id, required this.nameCourse});
 
   @override
   State<TopicPage> createState() => _TopicPageState();
 }
 
 class _TopicPageState extends State<TopicPage> {
+  @override
+  void initState() {
+    super.initState();
+    Topic.getTopic(widget.id).then((_) {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +41,7 @@ class _TopicPageState extends State<TopicPage> {
                       child: const Icon(Icons.arrow_back_ios),
                     ),
                     const Text(
-                      'Topic',
+                      'Course',
                       style: TextStyle(
                         fontSize: 22,
                       ),
@@ -39,45 +50,108 @@ class _TopicPageState extends State<TopicPage> {
                     const Icon(
                       Icons.arrow_back_ios,
                       color: owlBase,
-                    ),
+                    )
                   ],
                 ),
-                const SizedBox(height: 20),
-                Container(
+                const SizedBox(height: 15),
+                Center(child: Image.asset('assets/card/uiLogo.png')),
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: 250,
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(12),
+                  child: Text(
+                    widget.nameCourse,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    child: const Text(
+                      'Asah keahlian desain antarmuka untuk menciptakan pengalaman pengguna yang menarik',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: const Text(
+                    'Learning Path',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: const Text(
+                    'User Experience Research',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0,
                     ),
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text(
-                  "Introduction to HTML",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children:
+                        Topic.listTopic.map((data) => cardTopic(data)).toList(),
                   ),
                 ),
-                const Text(
-                  "Carstenz Meru - Frontend Engineer at OWL",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                const Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vivamus at augue eget arcu dictum varius duis at consectetur.",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                  ),
-                )
+                const SizedBox(height: 15),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget cardTopic(data) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: Container(
+        width: 130,
+        height: 160,
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(
+            15,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/card/pmLogo.png',
+              width: 120,
+              height: 70,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              data.name,
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
         ),
       ),
     );

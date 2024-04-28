@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/features/main/pages/course/course_model.dart';
-import 'package:mobile/features/main/pages/course/course_specific_page.dart';
 import 'package:mobile/shared/themes/color.dart';
 import 'package:mobile/shared/widgets/card.dart';
 import 'package:mobile/shared/widgets/search.dart';
@@ -19,9 +18,7 @@ class _CoursePageState extends State<CoursePage> {
   void initState() {
     super.initState();
     Course.getCourse().then((_) {
-      setState(() {
-        print('a');
-      });
+      setState(() {});
     });
   }
 
@@ -73,6 +70,7 @@ class _CoursePageState extends State<CoursePage> {
                             manyTopics: '6',
                             image: 'uiLogo',
                             label: data.name,
+                            id: data.id,
                           ))
                       .toList(),
                 ),
@@ -86,13 +84,7 @@ class _CoursePageState extends State<CoursePage> {
 
   Widget cardOngoing() {
     return InkWell(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const CourseSpecificPage(),
-          ),
-        );
-      },
+      onTap: () {},
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
