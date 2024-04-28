@@ -25,14 +25,14 @@ class UserAccess {
     final bodyResponse = jsonDecode(response.body);
     print(bodyResponse['profile'][0]);
     if (response.statusCode == 200) {
-      // final userProfile = bodyResponse['profile'][0];
-      // username = userProfile['username'];
-      // level = userProfile['level'];
-      // quizPoint = userProfile['quiz_point'];
-      // courseComplete = userProfile['course_completed'];
-      // materialComplete = userProfile['materials_completed'];
-      // quizComplete = userProfile['materials_completed'];
-      // topicComplete = userProfile['topic_completed'];
+      final userProfile = bodyResponse['profile'][0];
+      username = userProfile['username'].toString();
+      level = userProfile['level'].toString();
+      quizPoint = userProfile['quiz_point'].toString();
+      courseComplete = userProfile['course_completed'].toString();
+      materialComplete = userProfile['materials_completed'].toString();
+      quizComplete = userProfile['materials_completed'].toString();
+      topicComplete = userProfile['topic_completed'].toString();
     }
   }
 
