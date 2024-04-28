@@ -4,13 +4,12 @@ class CourseCard extends StatelessWidget {
   final String manyTopics;
   final String image;
   final String label;
-  final String label2;
-  const CourseCard(
-      {super.key,
-      required this.manyTopics,
-      required this.image,
-      required this.label,
-      required this.label2});
+  const CourseCard({
+    super.key,
+    required this.manyTopics,
+    required this.image,
+    required this.label,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +68,6 @@ class CourseCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                Text(
-                  label2,
-                  style: const TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                )
               ],
             )
           ],

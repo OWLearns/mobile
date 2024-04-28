@@ -325,15 +325,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           CourseCard(
                             manyTopics: '6',
                             image: 'pmLogo',
-                            label: 'Project',
-                            label2: 'Manager',
+                            label: 'Project Manager',
                           ),
                           SizedBox(width: 10),
                           CourseCard(
                             manyTopics: '7',
                             image: 'uiLogo',
-                            label: 'UI/UX',
-                            label2: 'Design',
+                            label: 'UI/UX Design',
                           ),
                         ],
                       ),

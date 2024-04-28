@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mobile/shared/themes/color.dart';
 import 'package:mobile/shared/widgets/card.dart';
 import 'package:mobile/shared/widgets/search.dart';
@@ -172,15 +171,13 @@ class _HomePageState extends State<HomePage> {
                     CourseCard(
                       manyTopics: '6',
                       image: 'pmLogo',
-                      label: 'Project',
-                      label2: 'Manager',
+                      label: 'Project Manager',
                     ),
                     SizedBox(width: 10),
                     CourseCard(
                       manyTopics: '7',
                       image: 'uiLogo',
-                      label: 'UI/UX',
-                      label2: 'Design',
+                      label: 'UI/UX Design',
                     ),
                   ],
                 ),

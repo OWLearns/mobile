@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/features/main/pages/course/course_model.dart';
 import 'package:mobile/features/main/pages/course/course_specific_page.dart';
 import 'package:mobile/shared/themes/color.dart';
 import 'package:mobile/shared/widgets/card.dart';
@@ -13,6 +14,16 @@ class CoursePage extends StatefulWidget {
 
 class _CoursePageState extends State<CoursePage> {
   final TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    Course.getCourse().then((_) {
+      setState(() {
+        print('a');
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,24 +65,16 @@ class _CoursePageState extends State<CoursePage> {
                 ),
               ),
               const SizedBox(height: 15),
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [
-                    CourseCard(
-                      manyTopics: '6',
-                      image: 'pmLogo',
-                      label: 'Project',
-                      label2: 'Manager',
-                    ),
-                    SizedBox(width: 10),
-                    CourseCard(
-                      manyTopics: '7',
-                      image: 'uiLogo',
-                      label: 'UI/UX',
-                      label2: 'Design',
-                    ),
-                  ],
+                  children: Course.listCourse
+                      .map((data) => CourseCard(
+                            manyTopics: '6',
+                            image: 'uiLogo',
+                            label: data.name,
+                          ))
+                      .toList(),
                 ),
               ),
             ],
