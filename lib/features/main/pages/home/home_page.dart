@@ -53,7 +53,8 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: const BoxDecoration(
-                      color: Color(0xff50C4ED),
+                      gradient: LinearGradient(
+                          colors: [Color(0xff606DD9), Color(0xff387ADF)]),
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           40,
@@ -95,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Positioned(
                     left: MediaQuery.of(context).size.width * 0.425,
-                    top: MediaQuery.of(context).size.width * -0.05,
+                    top: MediaQuery.of(context).size.width * -0.02,
                     child: SizedBox(
                       // width: MediaQuery.of(context).size.width * 0.4 - 45,
                       child: Image.asset(
