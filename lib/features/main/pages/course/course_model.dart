@@ -4,10 +4,11 @@ import 'package:http/http.dart' as http;
 class Course {
   final int id;
   final String name;
+  final String desc;
 
   static List<Course> listCourse = [];
 
-  Course({required this.id, required this.name});
+  Course({required this.id, required this.name, required this.desc});
 
   static getCourse() async {
     listCourse = [];
@@ -23,6 +24,7 @@ class Course {
               Course(
                 id: data['id'],
                 name: data['name'],
+                desc: data['description'],
               ),
             ),
           )

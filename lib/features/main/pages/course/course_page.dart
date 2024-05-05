@@ -72,6 +72,7 @@ class _CoursePageState extends State<CoursePage> {
                             manyTopics: '6',
                             image: 'uiLogo',
                             label: data.name,
+                            desc: data.desc,
                             id: data.id,
                           ))
                       .toList(),

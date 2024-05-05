@@ -7,7 +7,13 @@ import '../../../../shared/themes/color.dart';
 class TopicPage extends StatefulWidget {
   final int id;
   final String nameCourse;
-  const TopicPage({super.key, required this.id, required this.nameCourse});
+  final String descCourse;
+  const TopicPage({
+    super.key,
+    required this.id,
+    required this.nameCourse,
+    required this.descCourse,
+  });
 
   @override
   State<TopicPage> createState() => _TopicPageState();
@@ -79,9 +85,9 @@ class _TopicPageState extends State<TopicPage> {
                   width: MediaQuery.of(context).size.width,
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.75,
-                    child: const Text(
-                      'Asah keahlian desain antarmuka untuk menciptakan pengalaman pengguna yang menarik',
-                      style: TextStyle(
+                    child: Text(
+                      widget.descCourse,
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w300,
                       ),

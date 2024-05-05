@@ -174,6 +174,7 @@ class _HomePageState extends State<HomePage> {
                       image: 'pmLogo',
                       label: 'Project Manager',
                       id: 1,
+                      desc: 'test123',
                     ),
                     SizedBox(width: 10),
                     CourseCard(
@@ -181,6 +182,7 @@ class _HomePageState extends State<HomePage> {
                       image: 'uiLogo',
                       label: 'UI/UX Design',
                       id: 1,
+                      desc: 'test123',
                     ),
                   ],
                 ),

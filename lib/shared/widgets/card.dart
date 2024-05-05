@@ -6,12 +6,14 @@ class CourseCard extends StatelessWidget {
   final String manyTopics;
   final String image;
   final String label;
+  final String desc;
   const CourseCard({
     super.key,
     required this.manyTopics,
     required this.image,
     required this.label,
     required this.id,
+    required this.desc,
   });
 
   @override
@@ -25,6 +27,7 @@ class CourseCard extends StatelessWidget {
               builder: (context) => TopicPage(
                 id: id,
                 nameCourse: label,
+                descCourse: desc,
               ),
             ),
           );
@@ -96,4 +99,3 @@ class CourseCard extends StatelessWidget {
     );
   }
 }
-
