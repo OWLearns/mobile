@@ -23,9 +23,16 @@ class _MaterialsPageState extends State<MaterialsPage> {
       flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: false,
+        useHybridComposition: false,
       ),
     );
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    youtubeController.dispose();
+    super.dispose();
   }
 
   @override
@@ -78,16 +85,12 @@ class _MaterialsPageState extends State<MaterialsPage> {
                           controller: youtubeController,
                           aspectRatio: 16 / 9,
                           bottomActions: [
-                            CurrentPosition(
-                              controller: youtubeController,
-                            ),
+                            CurrentPosition(),
                             ProgressBar(
                               isExpanded: true,
-                              controller: youtubeController,
                             ),
-                            RemainingDuration(
-                              controller: youtubeController,
-                            ),
+                            RemainingDuration(),
+                            const PlaybackSpeedButton(),
                           ],
                         )
                       : const SizedBox(),
