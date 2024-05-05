@@ -18,7 +18,9 @@ class _CoursePageState extends State<CoursePage> {
   void initState() {
     super.initState();
     Course.getCourse().then((_) {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 

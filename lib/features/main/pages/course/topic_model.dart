@@ -15,21 +15,16 @@ class Topic {
       Uri.parse("https://nodejsdeployowl.et.r.appspot.com/topics/${id}"),
     );
 
-    if (response.statusCode == 200) {
-      final bodyResponse = await jsonDecode(response.body)['data'];
-      print(bodyResponse);
-      bodyResponse
-          .map(
-            (data) => listTopic.add(
-              Topic(
-                name: data['name'].toString(),
-                id: data['id'].toString(),
-              ),
+    final bodyResponse = await jsonDecode(response.body)['data'];
+    bodyResponse
+        .map(
+          (data) => listTopic.add(
+            Topic(
+              name: data['name'].toString(),
+              id: data['id'].toString(),
             ),
-          )
-          .toList();
-
-      // return true;
-    }
+          ),
+        )
+        .toList();
   }
 }

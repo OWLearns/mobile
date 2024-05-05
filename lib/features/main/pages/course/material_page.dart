@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/features/main/pages/course/material_model.dart';
 import 'package:mobile/shared/themes/color.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class MaterialPage extends StatefulWidget {
-  const MaterialPage({super.key});
+class MaterialsPage extends StatefulWidget {
+  final Materials dataMaterial;
+  const MaterialsPage({required this.dataMaterial, super.key});
 
   @override
-  State<MaterialPage> createState() => _MaterialPageState();
+  State<MaterialsPage> createState() => _MaterialsPageState();
 }
 
-class _MaterialPageState extends State<MaterialPage> {
+class _MaterialsPageState extends State<MaterialsPage> {
+  late YoutubePlayerController youtubeController;
+  bool showPlayer = true;
+
+  @override
+  void initState() {
+    youtubeController = YoutubePlayerController(
+      initialVideoId:
+          YoutubePlayer.convertUrlToId(widget.dataMaterial.videoLink)!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,12 +44,15 @@ class _MaterialPageState extends State<MaterialPage> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pop(context);
+                        setState(() {
+                          showPlayer = false;
+                        });
+                        Navigator.of(context).pop();
                       },
                       child: const Icon(Icons.arrow_back_ios),
                     ),
                     const Text(
-                      'Topic',
+                      'Title Material',
                       style: TextStyle(
                         fontSize: 22,
                       ),
@@ -47,11 +69,28 @@ class _MaterialPageState extends State<MaterialPage> {
                   width: MediaQuery.of(context).size.width,
                   height: 250,
                   decoration: const BoxDecoration(
-                    color: Colors.black,
                     borderRadius: BorderRadius.all(
                       Radius.circular(12),
                     ),
                   ),
+                  child: showPlayer
+                      ? YoutubePlayer(
+                          controller: youtubeController,
+                          aspectRatio: 16 / 9,
+                          bottomActions: [
+                            CurrentPosition(
+                              controller: youtubeController,
+                            ),
+                            ProgressBar(
+                              isExpanded: true,
+                              controller: youtubeController,
+                            ),
+                            RemainingDuration(
+                              controller: youtubeController,
+                            ),
+                          ],
+                        )
+                      : const SizedBox(),
                 ),
                 const SizedBox(height: 10),
                 const Text(
@@ -69,9 +108,9 @@ class _MaterialPageState extends State<MaterialPage> {
                   ),
                 ),
                 const SizedBox(height: 5),
-                const Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vivamus at augue eget arcu dictum varius duis at consectetur.",
-                  style: TextStyle(
+                Text(
+                  widget.dataMaterial.textDescription,
+                  style: const TextStyle(
                     fontWeight: FontWeight.w300,
                   ),
                 )

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/shared/themes/color.dart';
-import 'package:mobile/shared/widgets/card.dart';
+import 'package:mobile/shared/widgets/answer_card.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});

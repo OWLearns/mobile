@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/features/main/pages/course/material_model.dart';
+import 'package:mobile/features/main/pages/course/material_page.dart';
 import 'package:mobile/features/main/pages/course/topic_model.dart';
 import '../../../../shared/themes/color.dart';
 
@@ -16,7 +18,13 @@ class _TopicPageState extends State<TopicPage> {
   void initState() {
     super.initState();
     Topic.getTopic(widget.id).then((_) {
-      setState(() {});
+      final List<String> idTopic =
+          Topic.listTopic.map((dataTopic) => dataTopic.id).toList();
+      Materials.getMaterial(idTopic).then((_) {
+        if (mounted) {
+          setState(() {});
+        }
+      });
     });
   }
 
@@ -94,32 +102,47 @@ class _TopicPageState extends State<TopicPage> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: const Text(
-                    'User Experience Research',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 0,
-                    ),
-                  ),
+                Column(
+                  children: Topic.listTopic
+                      .map((data) => topicRow(data.name, data.id))
+                      .toList(),
                 ),
-                const SizedBox(height: 10),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children:
-                        Topic.listTopic.map((data) => cardTopic(data)).toList(),
-                  ),
-                ),
-                const SizedBox(height: 15),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget topicRow(String title, String id) {
+    return Column(
+      children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Text(
+            title,
+            textAlign: TextAlign.start,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0,
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: Materials.listMaterial
+                .where((data) => data.topicId == id)
+                .map((data) => cardTopic(data))
+                .toList(),
+          ),
+        ),
+        const SizedBox(height: 15),
+      ],
     );
   }
 
@@ -136,22 +159,34 @@ class _TopicPageState extends State<TopicPage> {
             15,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/card/pmLogo.png',
-              width: 120,
-              height: 70,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              data.name,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => MaterialsPage(
+                  dataMaterial: data,
+                ),
               ),
-            ),
-          ],
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/card/pmLogo.png',
+                width: 120,
+                height: 70,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                data.title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                ),
+                maxLines: 1,
+              ),
+            ],
+          ),
         ),
       ),
     );

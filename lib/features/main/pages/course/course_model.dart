@@ -28,7 +28,6 @@ class Course {
           )
           .toList();
 
-      print(listCourse);
       return true;
     }
   }
