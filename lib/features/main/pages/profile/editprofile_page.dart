@@ -49,11 +49,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     width: MediaQuery.of(context).size.width * 0.3,
                     height: MediaQuery.of(context).size.height * 0.25,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9999),
-                    ),
-                    child: Image.asset(
-                      'assets/sophia.png',
-                      fit: BoxFit.contain,
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(UserAccess.image),
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),

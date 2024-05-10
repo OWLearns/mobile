@@ -5,12 +5,16 @@ import 'package:mobile/shared/utils/token_handler.dart';
 
 class UserAccess {
   static String username = '';
-  static String level = '0';
-  static String quizPoint = '0';
-  static String courseComplete = '0';
-  static String materialComplete = '0';
-  static String quizComplete = '0';
-  static String topicComplete = '0';
+  static int level = 0;
+  static int quizPoint = 0;
+  static int courseComplete = 0;
+  static int materialComplete = 0;
+  static int quizComplete = 0;
+  static int topicComplete = 0;
+  static String biodata = '';
+  static String image = '';
+  static List achievement = [];
+  static List course = [];
 
   static getUser(String accessToken) async {
     final response = await http.post(
@@ -24,14 +28,18 @@ class UserAccess {
     );
     final bodyResponse = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      final userProfile = bodyResponse['profile'][0];
-      username = userProfile['username'].toString();
-      level = userProfile['level'].toString();
-      quizPoint = userProfile['quiz_point'].toString();
-      courseComplete = userProfile['course_completed'].toString();
-      materialComplete = userProfile['materials_completed'].toString();
-      quizComplete = userProfile['materials_completed'].toString();
-      topicComplete = userProfile['topic_completed'].toString();
+      final userProfile = bodyResponse['profile'];
+      username = userProfile['user']['username'];
+      level = userProfile['user']['level'];
+      quizPoint = userProfile['user']['quiz_point'];
+      courseComplete = userProfile['user']['course_completed'];
+      materialComplete = userProfile['user']['materials_completed'];
+      quizComplete = userProfile['user']['materials_completed'];
+      topicComplete = userProfile['user']['topic_completed'];
+      biodata = userProfile['user']['biodata'];
+      image = userProfile['user']['avatar'];
+      achievement = userProfile['achievement'];
+      course = userProfile['course'];
     }
   }
 

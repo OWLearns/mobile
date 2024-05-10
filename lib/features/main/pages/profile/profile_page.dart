@@ -23,6 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final tokenJWT = await Token.getToken();
     UserAccess.getUser(tokenJWT!).then((_) {
       if (mounted) {
+        print(UserAccess.achievement);
         setState(() {});
       }
     });
@@ -58,11 +59,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: MediaQuery.of(context).size.width * 0.3,
                     height: MediaQuery.of(context).size.height * 0.25,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9999),
-                    ),
-                    child: Image.asset(
-                      'assets/sophia.png',
-                      fit: BoxFit.contain,
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(UserAccess.image),
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),
@@ -156,7 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Positioned(
                             top: 5,
                             child: Text(
-                              UserAccess.level,
+                              "${UserAccess.level}",
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
@@ -167,8 +168,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                  const Text(
-                    "Hi, i’m a product designer specialized  in user interface with 10 years of exprience.",
+                  Text(
+                    UserAccess.biodata,
                   ),
                   Row(
                     children: [
@@ -208,67 +209,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              width: 1,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          child: const Text(
-                            "Future Developer",
-                            style: TextStyle(
-                              fontSize: 13,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              width: 1,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          child: const Text(
-                            "Future Developer",
-                            style: TextStyle(
-                              fontSize: 13,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              width: 1,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          child: const Text(
-                            "Future Developer",
-                            style: TextStyle(
-                              fontSize: 13,
-                            ),
-                          ),
-                        ),
-                      ],
+                      children: UserAccess.achievement.isNotEmpty
+                          ? UserAccess.achievement
+                              .map((achievementData) =>
+                                  achievementContainer(achievementData['name']))
+                              .toList()
+                          : [
+                              const Text(
+                                "No Achievement Yet",
+                              ),
+                            ],
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -294,19 +244,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         children: [
                           Text(
-                            UserAccess.courseComplete,
+                            "${UserAccess.courseComplete}",
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            UserAccess.materialComplete,
+                            "${UserAccess.materialComplete}",
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            UserAccess.quizComplete,
+                            "${UserAccess.quizComplete}",
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -326,13 +276,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         children: [
                           Text(
-                            UserAccess.topicComplete,
+                            "${UserAccess.topicComplete}",
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            UserAccess.quizPoint,
+                            "${UserAccess.quizPoint}",
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -380,6 +330,31 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget achievementContainer(String titleAchievement) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 4,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            width: 1,
+            color: Colors.grey,
+          ),
+        ),
+        child: Text(
+          titleAchievement,
+          style: const TextStyle(
+            fontSize: 13,
+          ),
         ),
       ),
     );
