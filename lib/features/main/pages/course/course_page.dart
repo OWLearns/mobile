@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/features/main/pages/course/course_model.dart';
+import 'package:mobile/features/main/pages/course/topic_page.dart';
 import 'package:mobile/shared/themes/color.dart';
+import 'package:mobile/shared/utils/user.dart';
 import 'package:mobile/shared/widgets/card.dart';
 import 'package:mobile/shared/widgets/search.dart';
 
@@ -52,9 +54,13 @@ class _CoursePageState extends State<CoursePage> {
                 ),
               ),
               const SizedBox(height: 15),
-              cardOngoing(),
-              const SizedBox(height: 10),
-              cardOngoing(),
+              UserAccess.course.isEmpty
+                  ? const Text("No Course Yet")
+                  : Column(
+                      children: UserAccess.course
+                          .map((dataCourse) => cardOngoing(dataCourse))
+                          .toList(),
+                    ),
               const SizedBox(height: 15),
               const Text(
                 'Kursus',
@@ -85,9 +91,18 @@ class _CoursePageState extends State<CoursePage> {
     );
   }
 
-  Widget cardOngoing() {
+  Widget cardOngoing(dataCourse) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => TopicPage(
+                id: dataCourse.id,
+                nameCourse: dataCourse.name,
+                descCourse: dataCourse.desc),
+          ),
+        );
+      },
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
@@ -114,7 +129,6 @@ class _CoursePageState extends State<CoursePage> {
             ),
             Expanded(
               child: Container(
-                // height: MediaQuery.of(context).size.height * 0.1,
                 padding: const EdgeInsets.all(10),
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -129,9 +143,9 @@ class _CoursePageState extends State<CoursePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Project Manager",
-                          style: TextStyle(
+                        Text(
+                          dataCourse["name"],
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
@@ -152,9 +166,9 @@ class _CoursePageState extends State<CoursePage> {
                         ),
                       ],
                     ),
-                    const Text(
-                      "Keterampilan manajemen proyek",
-                      style: TextStyle(
+                    Text(
+                      dataCourse.desc,
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w300,
