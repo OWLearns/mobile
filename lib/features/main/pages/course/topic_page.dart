@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/features/main/pages/course/material_model.dart';
 import 'package:mobile/features/main/pages/course/material_page.dart';
 import 'package:mobile/features/main/pages/course/topic_model.dart';
+import 'package:mobile/features/main/pages/quiz/quiz_pre_page.dart';
 import '../../../../shared/themes/color.dart';
 
 class TopicPage extends StatefulWidget {
@@ -141,10 +142,13 @@ class _TopicPageState extends State<TopicPage> {
           scrollDirection: Axis.horizontal,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: Materials.listMaterial
-                .where((data) => data.topicId == id)
-                .map((data) => cardTopic(data))
-                .toList(),
+            children: [
+              ...Materials.listMaterial
+                  .where((data) => data.topicId == id)
+                  .map((data) => cardTopic(data))
+                  .toList(),
+              quizCard(id, title),
+            ],
           ),
         ),
         const SizedBox(height: 15),
@@ -187,6 +191,53 @@ class _TopicPageState extends State<TopicPage> {
               Text(
                 data.title,
                 style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                ),
+                maxLines: 1,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget quizCard(String topicId, String topicName) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: Container(
+        width: 130,
+        height: 160,
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(
+            15,
+          ),
+        ),
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => QuizPrePage(
+                  topicId: topicId,
+                  topicName: topicName,
+                ),
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/card/pmLogo.png',
+                width: 120,
+                height: 70,
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                "Quiz",
+                style: TextStyle(
                   fontWeight: FontWeight.w600,
                 ),
                 maxLines: 1,

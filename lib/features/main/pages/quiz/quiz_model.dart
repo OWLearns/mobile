@@ -15,7 +15,7 @@ class Quiz {
     required this.correctAnswer,
   });
 
-  static getQuiz(int topicId) async {
+  static getQuiz(String topicId) async {
     listQuiz = [];
 
     final response = await http.get(

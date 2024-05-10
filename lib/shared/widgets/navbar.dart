@@ -41,8 +41,7 @@ class _NavbarState extends State<Navbar> {
       navbarItems("Home", 0),
       navbarItems("Course", 1),
       navbarItems("Leaderboard", 2),
-      navbarItems("Quiz", 3),
-      navbarItems("Profile", 4),
+      navbarItems("Profile", 3),
     ];
   }
 

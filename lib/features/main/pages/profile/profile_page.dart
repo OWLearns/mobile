@@ -23,7 +23,6 @@ class _ProfilePageState extends State<ProfilePage> {
     final tokenJWT = await Token.getToken();
     UserAccess.getUser(tokenJWT!).then((_) {
       if (mounted) {
-        print(UserAccess.achievement);
         setState(() {});
       }
     });
