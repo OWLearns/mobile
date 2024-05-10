@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/shared/themes/color.dart';
+import 'package:mobile/shared/utils/user.dart';
 import 'package:mobile/shared/widgets/card.dart';
 import 'package:mobile/shared/widgets/search.dart';
 
@@ -25,18 +26,18 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Selamat Pagi,",
                         style: TextStyle(
                           color: Color(0xff387ADF),
                         ),
                       ),
                       Text(
-                        "Cillian Murphy!",
-                        style: TextStyle(
+                        UserAccess.username,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),

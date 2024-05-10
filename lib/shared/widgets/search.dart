@@ -18,7 +18,7 @@ class SearchWidgetState extends State<SearchWidget> {
         isDense: true,
         contentPadding: EdgeInsets.symmetric(
           horizontal: 14,
-          vertical: 14,
+          vertical: 6,
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
