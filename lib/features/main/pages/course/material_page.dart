@@ -116,6 +116,11 @@ class _MaterialsPageState extends State<MaterialsPage> {
                   style: const TextStyle(
                     fontWeight: FontWeight.w300,
                   ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(10),
+                  child: Text("Finish"),
                 )
               ],
             ),

@@ -181,22 +181,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                   const SizedBox(height: 15),
-                  const Row(
-                    children: [
-                      Text(
-                        "57 ",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text("Followers"),
-                      SizedBox(width: 10),
-                      Text(
-                        "26 ",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text("Following"),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
                   const Text(
                     'Achievements',
                     style: TextStyle(

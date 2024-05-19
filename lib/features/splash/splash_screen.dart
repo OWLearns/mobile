@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/shared/utils/supabase.dart';
 import 'package:mobile/shared/utils/token_handler.dart';
 import 'package:mobile/shared/utils/user.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../shared/widgets/background.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,13 +25,16 @@ class _SplashScreenState extends State<SplashScreen> {
       return;
     }
 
+    final nav = Navigator.of(context);
     final jwt = await Token.getToken();
-    if (jwt != null) {
+    final UserResponse user = await SupabaseManager.supabase.auth.getUser(jwt);
+
+    if (jwt != null && user.user != null) {
       UserAccess.getUser(jwt).then((_) {
-        Navigator.of(context).pushReplacementNamed('/main');
+        nav.pushReplacementNamed('/main');
       });
     } else {
-      Navigator.of(context).pushReplacementNamed('/login');
+      nav.pushReplacementNamed('/login');
     }
   }
 
