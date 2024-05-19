@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/features/main/pages/course/course_page.dart';
-import 'package:mobile/features/main/pages/leaderboard/leaderbooard_page.dart';
+import 'package:mobile/features/main/pages/leaderboard/leaderboard_page.dart';
 import 'package:mobile/features/main/pages/profile/profile_page.dart';
 import '../pages/home/home_page.dart';
 
