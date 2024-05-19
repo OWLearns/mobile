@@ -111,7 +111,8 @@ class _TopicPageState extends State<TopicPage> {
                 const SizedBox(height: 15),
                 Column(
                   children: Topic.listTopic
-                      .map((data) => topicRow(data.name, data.id))
+                      .map((data) =>
+                          topicRow(data.name, data.id, data.quizAvailable))
                       .toList(),
                 ),
               ],
@@ -122,7 +123,7 @@ class _TopicPageState extends State<TopicPage> {
     );
   }
 
-  Widget topicRow(String title, String id) {
+  Widget topicRow(String title, String id, bool quizAvailable) {
     return Column(
       children: [
         SizedBox(
@@ -147,7 +148,7 @@ class _TopicPageState extends State<TopicPage> {
                   .where((data) => data.topicId == id)
                   .map((data) => cardTopic(data))
                   .toList(),
-              quizCard(id, title),
+              quizCard(id, title, quizAvailable),
             ],
           ),
         ),
@@ -202,7 +203,7 @@ class _TopicPageState extends State<TopicPage> {
     );
   }
 
-  Widget quizCard(String topicId, String topicName) {
+  Widget quizCard(String topicId, String topicName, bool quizAvailable) {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: Container(
@@ -210,21 +211,23 @@ class _TopicPageState extends State<TopicPage> {
         height: 160,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: quizAvailable ? Colors.white : Colors.grey,
           borderRadius: BorderRadius.circular(
             15,
           ),
         ),
         child: InkWell(
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => QuizPrePage(
-                  topicId: topicId,
-                  topicName: topicName,
+            if (quizAvailable) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => QuizPrePage(
+                    topicId: topicId,
+                    topicName: topicName,
+                  ),
                 ),
-              ),
-            );
+              );
+            }
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

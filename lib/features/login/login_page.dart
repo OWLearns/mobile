@@ -24,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
         .then((value) {
       if (value['status'] == "success") {
         Token.getToken().then((value) {
-          print(value);
           UserAccess.getUser(value!);
         }).then((_) => Navigator.of(context).pushReplacementNamed('/main'));
       } else {
