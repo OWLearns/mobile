@@ -20,12 +20,14 @@ class _LoginPageState extends State<LoginPage> {
   String errorText = '';
 
   void handleLogin() {
+    final nav = Navigator.of(context);
     LoginModel.loginEmail(emailController.text, passwordController.text)
-        .then((value) {
+        .then((value) async {
       if (value['status'] == "success") {
-        Token.getToken().then((value) {
-          UserAccess.getUser(value!);
-        }).then((_) => Navigator.of(context).pushReplacementNamed('/main'));
+        Token.getToken().then((value) async {
+          await UserAccess.getUser(value!);
+          nav.pushReplacementNamed('/main');
+        });
       } else {
         setState(() {
           errorText = value['message'];

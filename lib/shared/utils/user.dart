@@ -5,7 +5,7 @@ import 'package:mobile/shared/utils/token_handler.dart';
 
 class UserAccess {
   static String username = '';
-  static int level = 0;
+  static int exp = 0;
   static int quizPoint = 0;
   static int courseComplete = 0;
   static int materialComplete = 0;
@@ -15,6 +15,7 @@ class UserAccess {
   static String image = '';
   static List achievement = [];
   static List course = [];
+  static int level = 1;
 
   static getUser(String accessToken) async {
     final response = await http.post(
@@ -30,8 +31,8 @@ class UserAccess {
     if (response.statusCode == 200) {
       final userProfile = bodyResponse['profile'];
       username = userProfile['user']['username'];
-      level = userProfile['user']['level'];
-      quizPoint = userProfile['user']['quiz_point'];
+      exp = userProfile['user']['exp'];
+      quizPoint = userProfile['user']['quiz_point'];  
       courseComplete = userProfile['user']['course_completed'];
       materialComplete = userProfile['user']['materials_completed'];
       quizComplete = userProfile['user']['materials_completed'];
@@ -40,6 +41,7 @@ class UserAccess {
       image = userProfile['user']['avatar'];
       achievement = userProfile['achievement'];
       course = userProfile['course'];
+      level = 1 + exp ~/ 100;
     }
   }
 

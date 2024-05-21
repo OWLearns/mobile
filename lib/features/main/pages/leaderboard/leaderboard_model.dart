@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class Leaderboard {
   final String img;
   final String name;
-  final String level;
+  final int level;
 
   Leaderboard({
     required this.img,
@@ -16,7 +16,7 @@ class Leaderboard {
   static List<Leaderboard> listLeaderboard = [];
 
   static getLeaderboard() async {
-    listLeaderboard = [];
+    List<Leaderboard> tempListLeaderboard = [];
 
     final response = await http.get(
       Uri.parse("https://nodejsdeployowl.et.r.appspot.com/leaderboard"),
@@ -24,13 +24,15 @@ class Leaderboard {
 
     final bodyResponse = await jsonDecode(response.body)['data'];
     bodyResponse.map((data) {
-      listLeaderboard.add(
+      tempListLeaderboard.add(
         Leaderboard(
           img: data['avatar'].toString(),
           name: data['username'].toString(),
-          level: data['level'].toString(),
+          level: (data['exp'] ~/ 100 + 1),
         ),
       );
     }).toList();
+
+    listLeaderboard = tempListLeaderboard;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/shared/utils/user.dart';
 
 class Navbar extends StatefulWidget {
   final int selectedIndex;
@@ -58,13 +59,22 @@ class _NavbarState extends State<Navbar> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              navbarIndex == widget.selectedIndex
-                  ? 'assets/nav/${label.toLowerCase()}_active.png'
-                  : 'assets/nav/${label.toLowerCase()}.png',
-              width: MediaQuery.of(context).size.width * 0.07,
-              height: MediaQuery.of(context).size.width * 0.07,
-            ),
+            navbarIndex < 3
+                ? Image.asset(
+                    navbarIndex == widget.selectedIndex
+                        ? 'assets/nav/${label.toLowerCase()}_active.png'
+                        : 'assets/nav/${label.toLowerCase()}.png',
+                    width: MediaQuery.of(context).size.width * 0.07,
+                    height: MediaQuery.of(context).size.width * 0.07,
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(9999),
+                    child: Image.network(
+                      UserAccess.image,
+                      width: MediaQuery.of(context).size.width * 0.07,
+                      height: MediaQuery.of(context).size.width * 0.07,
+                    ),
+                  ),
             const SizedBox(height: 3),
             FittedBox(
               child: Text(

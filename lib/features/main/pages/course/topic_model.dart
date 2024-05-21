@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/shared/utils/token_handler.dart';
 
@@ -39,4 +40,6 @@ class Topic {
       print(e);
     }
   }
+
+  map(Widget Function(dynamic data) param0) {}
 }

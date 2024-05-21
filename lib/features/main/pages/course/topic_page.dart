@@ -35,6 +35,10 @@ class _TopicPageState extends State<TopicPage> {
     });
   }
 
+  void updateCallBack() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,45 +164,62 @@ class _TopicPageState extends State<TopicPage> {
   Widget cardTopic(data) {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
-      child: Container(
-        width: 130,
-        height: 160,
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(
-            15,
+      child: Stack(
+        children: [
+          Container(
+            width: 130,
+            height: 160,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(
+                15,
+              ),
+            ),
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MaterialsPage(
+                      dataMaterial: data,
+                      courseId: widget.id,
+                      updateCallBack: updateCallBack,
+                    ),
+                  ),
+                );
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/card/pmLogo.png',
+                    width: 120,
+                    height: 70,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    data.title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 1,
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-        child: InkWell(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => MaterialsPage(
-                  dataMaterial: data,
-                ),
-              ),
-            );
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/card/pmLogo.png',
-                width: 120,
-                height: 70,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                data.title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
-                maxLines: 1,
-              ),
-            ],
-          ),
-        ),
+          data.completed
+              ? Positioned(
+                  right: 10,
+                  top: 10,
+                  child: Image.asset(
+                    'assets/check.png',
+                    width: 25,
+                    height: 25,
+                  ),
+                )
+              : const SizedBox(),
+        ],
       ),
     );
   }

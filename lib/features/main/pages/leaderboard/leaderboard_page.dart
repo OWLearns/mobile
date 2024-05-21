@@ -40,7 +40,12 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
               ...Leaderboard.listLeaderboard.asMap().entries.map((entry) {
                 int index = entry.key;
                 var e = entry.value;
-                return dataLeaderboard(index + 1, e.img, e.name, e.level);
+                return dataLeaderboard(
+                  index + 1,
+                  e.img,
+                  e.name,
+                  (e.level).toString(),
+                );
               }).toList(),
             ],
           ),
@@ -49,7 +54,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
     );
   }
 
-  Widget dataLeaderboard(int rank, String img, String name, String level) {
+  Widget dataLeaderboard(int rank, String img, String name, String exp) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Container(
@@ -71,30 +76,33 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                       fontSize: 20,
                     )),
               ),
-              Expanded(
-                flex: 2,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(9999),
                 child: Image.network(
                   img,
                   width: 35,
                   height: 35,
                 ),
               ),
+              const SizedBox(width: 20),
               Expanded(
                 flex: 6,
                 child: Text(
                   name,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.start,
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Expanded(
                 flex: 3,
                 child: Text(
-                  "Level $level",
+                  "Level $exp",
                   textAlign: TextAlign.end,
                   style: const TextStyle(
                     color: Colors.white,

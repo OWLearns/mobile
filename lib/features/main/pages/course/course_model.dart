@@ -11,7 +11,7 @@ class Course {
   Course({required this.id, required this.name, required this.desc});
 
   static getCourse() async {
-    listCourse = [];
+    List<Course> tempListCourse = [];
     final response = await http.get(
       Uri.parse("https://nodejsdeployowl.et.r.appspot.com/courses"),
     );
@@ -20,7 +20,7 @@ class Course {
       final List bodyResponse = jsonDecode(response.body)['data'];
       bodyResponse
           .map(
-            (data) => listCourse.add(
+            (data) => tempListCourse.add(
               Course(
                 id: data['id'],
                 name: data['name'],
@@ -30,7 +30,7 @@ class Course {
           )
           .toList();
 
-      return true;
+      listCourse = tempListCourse;
     }
   }
 }

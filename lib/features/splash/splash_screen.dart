@@ -19,19 +19,22 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> redirectPage() async {
-    await Future.delayed(const Duration(seconds: 2));
-    if (!mounted) {
-      return;
-    }
-
     final nav = Navigator.of(context);
     final jwt = await Token.getToken();
     try {
       await SupabaseManager.supabase.auth.getUser(jwt);
-      UserAccess.getUser(jwt!).then((_) {
+      UserAccess.getUser(jwt!).then((_) async {
+        await Future.delayed(const Duration(seconds: 2));
+        if (!mounted) {
+          return;
+        }
         nav.pushReplacementNamed('/main');
       });
     } catch (e) {
+      await Future.delayed(const Duration(seconds: 2));
+      if (!mounted) {
+        return;
+      }
       nav.pushReplacementNamed('/login');
     }
   }

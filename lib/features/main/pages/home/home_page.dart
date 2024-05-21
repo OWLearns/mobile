@@ -15,6 +15,12 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController searchController = TextEditingController();
 
   @override
+  void initState() {
+    setState(() {});
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: owlBase,
