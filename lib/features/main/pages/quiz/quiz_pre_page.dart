@@ -14,36 +14,105 @@ class QuizPrePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Text("Quiz Web Dev"),
-              const Text("React Dev"),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => QuizPage(
-                        topicId: topicId,
-                        topicName: topicName,
-                      ),
-                    ),
-                  );
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
+      backgroundColor: owlBase,
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Center(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 250,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 20,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.grey,
+                width: 2,
+              ),
+            ),
+            child: Column(
+              children: [
+                const Text(
+                  "Bayangkan Quiz",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: owlMidBlue,
-                  ),
-                  child: const Text("Start Quiz"),
                 ),
-              )
-            ],
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    "Test your knowledge in this $topicName quiz!, answer each question correctly to get a high score!",
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const Spacer(),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => QuizPage(
+                          topicId: topicId,
+                          topicName: topicName,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: owlMidBlue,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Text(
+                      "Get Started",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: owlMidBlue,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Text(
+                      "Cancel",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: owlMidBlue,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
