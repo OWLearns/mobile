@@ -44,7 +44,7 @@ class QuizPostPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 15),
-                finalScore > 70
+                finalScore > 75
                     ? Text(
                         "Selamat, Anda Telah Menyelasaikan $topicName Quiz!!",
                         style: const TextStyle(

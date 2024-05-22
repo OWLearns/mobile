@@ -315,11 +315,16 @@ class _QuizPageState extends State<QuizPage> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
+                      double finalScore = getScore();
+                      if (finalScore > 75) {
+                        Quiz.quizScore(widget.topicId, finalScore.floor());
+                      }
+
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => QuizPostPage(
                             topicName: widget.topicName,
-                            finalScore: getScore(),
+                            finalScore: finalScore,
                           ),
                         ),
                       );

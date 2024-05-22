@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:mobile/shared/utils/token_handler.dart';
 
 class Quiz {
   final String questionQuiz;
@@ -33,5 +34,17 @@ class Quiz {
         ),
       );
     }).toList();
+  }
+
+  static quizScore(String topicId, int score) async {
+    final jwt = await Token.getToken();
+    http.post(
+      Uri.parse("https://nodejsdeployowl.et.r.appspot.com/quizScore"),
+      body: {
+        "topicID": topicId,
+        "score": score.toString(),
+        "access_token": jwt,
+      },
+    );
   }
 }
