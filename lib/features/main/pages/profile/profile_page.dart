@@ -167,9 +167,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 5),
                   Text(
                     UserAccess.biodata,
                   ),
+                  const SizedBox(height: 5),
                   Row(
                     children: [
                       Image.asset(
@@ -177,7 +179,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         width: 20,
                         height: 20,
                       ),
-                      const Text(" Jakarta, Indonesia"),
+                      const Text("Indonesia"),
                     ],
                   ),
                   const SizedBox(height: 15),

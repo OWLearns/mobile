@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/features/main/pages/profile/profile_page.dart';
 import 'package:mobile/shared/themes/color.dart';
+import 'package:mobile/shared/utils/token_handler.dart';
 import 'package:mobile/shared/utils/user.dart';
 import 'package:mobile/shared/widgets/text_field.dart';
 
@@ -78,26 +80,42 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   CustomTextField(
                     hidden: false,
                     controller: bioController,
-                    hint: "Masih Kosong",
+                    hint: UserAccess.biodata,
                     label: "Bio",
                   ),
                   const SizedBox(height: 30),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
-                      color: owlMidBlue,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
+                  InkWell(
+                    onTap: () async {
+                      final jwt = await Token.getToken();
+                      UserAccess.editUser(
+                              usernameController.text, bioController.text, jwt)
+                          .then(
+                        (_) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const ProfilePage(),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: const BoxDecoration(
+                        color: owlMidBlue,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
                       ),
-                    ),
-                    width: MediaQuery.of(context).size.width,
-                    child: const Center(
-                      child: Text(
-                        "Save",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                      width: MediaQuery.of(context).size.width,
+                      child: const Center(
+                        child: Text(
+                          "Save",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),

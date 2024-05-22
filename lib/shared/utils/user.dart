@@ -67,4 +67,15 @@ class UserAccess {
     Token.deleteToken();
     await SupabaseManager.supabase.auth.signOut();
   }
+
+  static editUser(String editUsername, String editBioData, jwt) async {
+    http.patch(
+      Uri.parse("https://nodejsdeployowl.et.r.appspot.com/editProfile"),
+      body: {
+        "username": editUsername,
+        "biodata": editBioData,
+        "access_token": jwt,
+      },
+    );
+  }
 }
