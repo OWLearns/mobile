@@ -26,6 +26,7 @@ class _MaterialsPageState extends State<MaterialsPage> {
   late int currentIndexMaterial;
   late bool prevAvailable;
   late bool nextAvailable;
+  bool isCompleteLoading = false;
 
   @override
   void initState() {
@@ -75,188 +76,207 @@ class _MaterialsPageState extends State<MaterialsPage> {
           widget.updateCallBack();
         }
       },
-      child: Scaffold(
-        backgroundColor: owlBase,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: owlBase,
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            showPlayer = false;
-                          });
-                          widget.updateCallBack();
-                          Navigator.of(context).pop();
-                        },
-                        child: const Icon(Icons.arrow_back_ios),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                showPlayer = false;
+                              });
+                              widget.updateCallBack();
+                              Navigator.of(context).pop();
+                            },
+                            child: const Icon(Icons.arrow_back_ios),
+                          ),
+                          Text(
+                            widget.dataMaterial.title,
+                            style: const TextStyle(
+                              fontSize: 22,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const Icon(
+                            Icons.arrow_back_ios,
+                            color: owlBase,
+                          ),
+                        ],
                       ),
+                      const SizedBox(height: 20),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 250,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                        ),
+                        child: showPlayer
+                            ? YoutubePlayer(
+                                controller: youtubeController,
+                                aspectRatio: 16 / 9,
+                                bottomActions: [
+                                  CurrentPosition(),
+                                  ProgressBar(
+                                    isExpanded: true,
+                                  ),
+                                  RemainingDuration(),
+                                  const PlaybackSpeedButton(),
+                                ],
+                              )
+                            : const SizedBox(),
+                      ),
+                      const SizedBox(height: 10),
                       Text(
                         widget.dataMaterial.title,
                         style: const TextStyle(
-                          fontSize: 22,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const Icon(
-                        Icons.arrow_back_ios,
-                        color: owlBase,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 250,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(12),
-                      ),
-                    ),
-                    child: showPlayer
-                        ? YoutubePlayer(
-                            controller: youtubeController,
-                            aspectRatio: 16 / 9,
-                            bottomActions: [
-                              CurrentPosition(),
-                              ProgressBar(
-                                isExpanded: true,
-                              ),
-                              RemainingDuration(),
-                              const PlaybackSpeedButton(),
-                            ],
-                          )
-                        : const SizedBox(),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    widget.dataMaterial.title,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    widget.dataMaterial.textDescription,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          if (prevAvailable) {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => MaterialsPage(
-                                  dataMaterial:
-                                      listMaterial[currentIndexMaterial - 1],
-                                  courseId: widget.courseId,
-                                  updateCallBack: widget.updateCallBack,
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                        child: Icon(
-                          Icons.arrow_back_ios_sharp,
-                          color: prevAvailable ? Colors.black : Colors.grey,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 20),
-                      !listMaterial[currentIndexMaterial].completed
-                          ? Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  Materials.completeMaterial(
-                                    widget.dataMaterial.id,
-                                  ).then((_) {
-                                    Topic.getTopic(widget.courseId).then((_) {
-                                      final List<String> idTopic = Topic
-                                          .listTopic
-                                          .map((dataTopic) => dataTopic.id)
-                                          .toList();
-                                      Materials.getMaterial(idTopic).then((_) {
-                                        updateMaterial();
-                                        setState(() {});
-                                      });
-                                    });
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: owlDarkBlue,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  child: const Text(
-                                    "Finish This Course",
-                                    style: TextStyle(
-                                      color: owlBase,
-                                      fontSize: 16,
-                                      letterSpacing: 1,
+                      const SizedBox(height: 5),
+                      Text(
+                        widget.dataMaterial.textDescription,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              if (prevAvailable) {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => MaterialsPage(
+                                      dataMaterial: listMaterial[
+                                          currentIndexMaterial - 1],
+                                      courseId: widget.courseId,
+                                      updateCallBack: widget.updateCallBack,
                                     ),
-                                    textAlign: TextAlign.center,
                                   ),
-                                ),
-                              ),
-                            )
-                          : Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: owlDarkBlue,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: const EdgeInsets.all(8),
-                                child: const Text(
-                                  "Completed",
-                                  style: TextStyle(
-                                    color: owlBase,
-                                    fontSize: 16,
-                                    letterSpacing: 1,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                                );
+                              }
+                            },
+                            child: Icon(
+                              Icons.arrow_back_ios_sharp,
+                              color: prevAvailable ? Colors.black : Colors.grey,
                             ),
-                      const SizedBox(width: 20),
-                      InkWell(
-                        onTap: () {
-                          if (nextAvailable) {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => MaterialsPage(
-                                  dataMaterial:
-                                      listMaterial[currentIndexMaterial + 1],
-                                  courseId: widget.courseId,
-                                  updateCallBack: widget.updateCallBack,
+                          ),
+                          const SizedBox(width: 20),
+                          !listMaterial[currentIndexMaterial].completed
+                              ? Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        isCompleteLoading = true;
+                                      });
+                                      Materials.completeMaterial(
+                                        widget.dataMaterial.id,
+                                      ).then((_) {
+                                        Topic.getTopic(widget.courseId)
+                                            .then((_) {
+                                          final List<String> idTopic = Topic
+                                              .listTopic
+                                              .map((dataTopic) => dataTopic.id)
+                                              .toList();
+                                          Materials.getMaterial(idTopic)
+                                              .then((_) {
+                                            updateMaterial();
+                                            setState(() {
+                                              isCompleteLoading = false;
+                                            });
+                                          });
+                                        });
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: owlDarkBlue,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      padding: const EdgeInsets.all(8),
+                                      child: const Text(
+                                        "Finish This Course",
+                                        style: TextStyle(
+                                          color: owlBase,
+                                          fontSize: 16,
+                                          letterSpacing: 1,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: owlDarkBlue,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    padding: const EdgeInsets.all(8),
+                                    child: const Text(
+                                      "Completed",
+                                      style: TextStyle(
+                                        color: owlBase,
+                                        fontSize: 16,
+                                        letterSpacing: 1,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                        },
-                        child: Icon(
-                          Icons.arrow_forward_ios_sharp,
-                          color: nextAvailable ? Colors.black : Colors.grey,
-                        ),
+                          const SizedBox(width: 20),
+                          InkWell(
+                            onTap: () {
+                              if (nextAvailable) {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => MaterialsPage(
+                                      dataMaterial: listMaterial[
+                                          currentIndexMaterial + 1],
+                                      courseId: widget.courseId,
+                                      updateCallBack: widget.updateCallBack,
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                            child: Icon(
+                              Icons.arrow_forward_ios_sharp,
+                              color: nextAvailable ? Colors.black : Colors.grey,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
+          isCompleteLoading
+              ? Container(
+                  color: Colors.black.withOpacity(0.5),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : const SizedBox()
+        ],
       ),
     );
   }
