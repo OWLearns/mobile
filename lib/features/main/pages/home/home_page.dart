@@ -160,50 +160,60 @@ class _HomePageState extends State<HomePage> {
               SearchWidget(searchController: searchController),
               const SizedBox(height: 20),
               const Text(
-                "Terakhir dipelajari",
+                "Sedang Dipelajari",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 10),
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          15,
+              ...UserAccess.ongoingCourse
+                  .map(
+                    (dataCourse) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(
+                                15,
+                              ),
+                            ),
+                            border: Border.all(
+                              color: const Color(0xffC2C2C2),
+                              width: 0.7,
+                            )),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Image.asset("assets/home/topicLogo.png"),
+                              const SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Course : ${dataCourse['name']}"),
+                                  Row(
+                                    children: [
+                                      Image.asset("assets/home/penLogo.png"),
+                                      Text(
+                                        " ${dataCourse["total_materials"]} Materi",
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                      border: Border.all(
-                        color: const Color(0xffC2C2C2),
-                        width: 0.7,
-                      )),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Image.asset("assets/home/topicLogo.png"),
-                        const SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text("Topik: Front End - HTML"),
-                            Row(
-                              children: [
-                                Image.asset("assets/home/penLogo.png"),
-                                const Text(
-                                  " 49 Materi",
-                                  style: TextStyle(fontSize: 12),
-                                )
-                              ],
-                            )
-                          ],
-                        )
-                      ],
                     ),
-                  )),
+                  )
+                  .toList(),
               const SizedBox(height: 20),
               const Text(
                 'Rekomendasi Kursus Untukmu',
