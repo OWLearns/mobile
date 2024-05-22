@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:mobile/features/main/pages/course/course_model.dart';
 import 'package:mobile/shared/themes/color.dart';
 import 'package:mobile/shared/utils/user.dart';
 import 'package:mobile/shared/widgets/card.dart';
@@ -13,11 +16,49 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController searchController = TextEditingController();
+  late CourseCard? course1;
+  late CourseCard? course2;
 
   @override
   void initState() {
     setState(() {});
     super.initState();
+
+    Course.listCourse.isEmpty
+        ? Course.getCourse().then((_) {
+            if (mounted) {
+              setState(() {
+                randomizeCourse();
+              });
+            }
+          })
+        : randomizeCourse();
+  }
+
+  void randomizeCourse() {
+    Random random = Random();
+    int index1 = random.nextInt(Course.listCourse.length);
+    int index2;
+
+    do {
+      index2 = random.nextInt(Course.listCourse.length);
+    } while (index2 == index1);
+
+    course1 = CourseCard(
+      manyTopics: Course.listCourse[index1].topic.toString(),
+      image: Course.listCourse[index1].image,
+      label: Course.listCourse[index1].name,
+      id: Course.listCourse[index1].id,
+      desc: Course.listCourse[index1].desc,
+    );
+
+    course2 = CourseCard(
+      manyTopics: Course.listCourse[index2].topic.toString(),
+      image: Course.listCourse[index2].image,
+      label: Course.listCourse[index2].name,
+      id: Course.listCourse[index2].id,
+      desc: Course.listCourse[index2].desc,
+    );
   }
 
   @override
@@ -165,32 +206,20 @@ class _HomePageState extends State<HomePage> {
                   )),
               const SizedBox(height: 20),
               const Text(
-                'Kursus',
+                'Rekomendasi Kursus Untukmu',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
               ),
               const SizedBox(height: 10),
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    CourseCard(
-                      manyTopics: '6',
-                      image: 'pmLogo',
-                      label: 'Project Manager',
-                      id: 1,
-                      desc: 'test123',
-                    ),
-                    SizedBox(width: 10),
-                    CourseCard(
-                      manyTopics: '7',
-                      image: 'uiLogo',
-                      label: 'UI/UX Design',
-                      id: 1,
-                      desc: 'test123',
-                    ),
+                    course1 ?? const SizedBox(),
+                    const SizedBox(width: 10),
+                    course2 ?? const SizedBox(),
                   ],
                 ),
               ),

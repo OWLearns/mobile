@@ -280,35 +280,27 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const SizedBox(height: 15),
                   const Text(
-                    'Pelajari Kursus Lainnya',
+                    'Kursus Yang Telah Diselesaikan',
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 16,
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        CourseCard(
-                          manyTopics: '6',
-                          image: 'pmLogo',
-                          label: 'Project Manager',
-                          id: 1,
-                          desc: 'test123',
+                  UserAccess.completedCourse.isEmpty
+                      ? const Text("Belum Ada Kursus Yang Diselesaikan :(")
+                      : SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                              children: UserAccess.completedCourse
+                                  .map((dataCourse) => CourseCard(
+                                      manyTopics: dataCourse["total_topics"],
+                                      image: dataCourse["image"],
+                                      label: dataCourse["name"],
+                                      id: dataCourse["id"],
+                                      desc: dataCourse["description"]))
+                                  .toList()),
                         ),
-                        SizedBox(width: 10),
-                        CourseCard(
-                          manyTopics: '7',
-                          image: 'uiLogo',
-                          label: 'UI/UX Design',
-                          id: 1,
-                          desc: 'test123',
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),

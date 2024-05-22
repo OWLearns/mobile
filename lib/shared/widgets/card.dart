@@ -68,15 +68,16 @@ class CourseCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/card/$image.png',
+                    Image.network(
+                      image,
                       height: 130,
                       width: 130,
                     ),
                   ],
                 ),
+                const SizedBox(height: 15),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -84,9 +85,10 @@ class CourseCard extends StatelessWidget {
                       child: Text(
                         label,
                         style: const TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],

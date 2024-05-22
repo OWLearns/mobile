@@ -5,10 +5,18 @@ class Course {
   final int id;
   final String name;
   final String desc;
+  final String image;
+  final int topic;
 
   static List<Course> listCourse = [];
 
-  Course({required this.id, required this.name, required this.desc});
+  Course({
+    required this.id,
+    required this.name,
+    required this.desc,
+    required this.image,
+    required this.topic,
+  });
 
   static getCourse() async {
     List<Course> tempListCourse = [];
@@ -25,6 +33,8 @@ class Course {
                 id: data['id'],
                 name: data['name'],
                 desc: data['description'],
+                image: data['image'],
+                topic: data['total_topics'],
               ),
             ),
           )

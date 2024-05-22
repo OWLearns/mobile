@@ -54,10 +54,12 @@ class _CoursePageState extends State<CoursePage> {
                 ),
               ),
               const SizedBox(height: 15),
-              UserAccess.course.isEmpty
+              UserAccess.ongoingCourse.isEmpty
                   ? const Text("No Course Yet")
                   : Column(
-                      children: UserAccess.course
+                      children: UserAccess.ongoingCourse
+                          .where((dataCourse) =>
+                              dataCourse["total_materials"] != 0)
                           .map((dataCourse) => cardOngoing(dataCourse))
                           .toList(),
                     ),
@@ -75,8 +77,8 @@ class _CoursePageState extends State<CoursePage> {
                 child: Row(
                   children: Course.listCourse
                       .map((data) => CourseCard(
-                            manyTopics: '6',
-                            image: 'uiLogo',
+                            manyTopics: (data.topic).toString(),
+                            image: data.image,
                             label: data.name,
                             desc: data.desc,
                             id: data.id,
@@ -94,12 +96,13 @@ class _CoursePageState extends State<CoursePage> {
   Widget cardOngoing(dataCourse) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushReplacement(
+        Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => TopicPage(
-                id: dataCourse.id,
-                nameCourse: dataCourse.name,
-                descCourse: dataCourse.desc),
+              id: dataCourse["id"],
+              nameCourse: dataCourse["name"],
+              descCourse: dataCourse["description"],
+            ),
           ),
         );
       },
@@ -123,8 +126,8 @@ class _CoursePageState extends State<CoursePage> {
               ),
               height: MediaQuery.of(context).size.height * 0.1,
               padding: const EdgeInsets.all(10),
-              child: Image.asset(
-                'assets/card/pmLogo.png',
+              child: Image.network(
+                dataCourse["image"],
               ),
             ),
             Expanded(
@@ -156,9 +159,9 @@ class _CoursePageState extends State<CoursePage> {
                               'assets/card/bookLogo.png',
                             ),
                             const SizedBox(width: 5),
-                            const Text(
-                              "6 topics",
-                              style: TextStyle(
+                            Text(
+                              dataCourse["total_topics"].toString(),
+                              style: const TextStyle(
                                 fontSize: 14,
                               ),
                             ),
@@ -167,12 +170,14 @@ class _CoursePageState extends State<CoursePage> {
                       ],
                     ),
                     Text(
-                      dataCourse.desc,
+                      dataCourse["description"],
                       style: const TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 12,
                         fontWeight: FontWeight.w300,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     Row(
                       children: [
@@ -187,7 +192,8 @@ class _CoursePageState extends State<CoursePage> {
                           ),
                           child: FractionallySizedBox(
                             alignment: Alignment.bottomLeft,
-                            widthFactor: 0.5,
+                            widthFactor: (dataCourse["completed_materials"] /
+                                dataCourse["total_materials"]),
                             child: Container(
                               decoration: const BoxDecoration(
                                 color: Colors.blue,
@@ -206,8 +212,10 @@ class _CoursePageState extends State<CoursePage> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        const FittedBox(
-                          child: Text('50%'),
+                        FittedBox(
+                          child: Text(
+                            "${(dataCourse["completed_materials"] / dataCourse["total_materials"] * 100).floor()}%",
+                          ),
                         )
                       ],
                     )

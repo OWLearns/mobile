@@ -14,7 +14,8 @@ class UserAccess {
   static String biodata = '';
   static String image = '';
   static List achievement = [];
-  static List course = [];
+  static List completedCourse = [];
+  static List ongoingCourse = [];
   static int level = 1;
 
   static getUser(String accessToken) async {
@@ -28,21 +29,38 @@ class UserAccess {
       ),
     );
     final bodyResponse = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      final userProfile = bodyResponse['profile'];
-      username = userProfile['user']['username'];
-      exp = userProfile['user']['exp'];
-      quizPoint = userProfile['user']['quiz_point'];  
-      courseComplete = userProfile['user']['course_completed'];
-      materialComplete = userProfile['user']['materials_completed'];
-      quizComplete = userProfile['user']['materials_completed'];
-      topicComplete = userProfile['user']['topic_completed'];
-      biodata = userProfile['user']['biodata'];
-      image = userProfile['user']['avatar'];
-      achievement = userProfile['achievement'];
-      course = userProfile['course'];
-      level = 1 + exp ~/ 100;
-    }
+
+    final userProfile = bodyResponse['profile'];
+    username = userProfile['user']['username'];
+    exp = userProfile['user']['exp'];
+    quizPoint = userProfile['user']['quiz_point'];
+    courseComplete = userProfile['user']['course_completed'];
+    materialComplete = userProfile['user']['materials_completed'];
+    quizComplete = userProfile['user']['materials_completed'];
+    topicComplete = userProfile['user']['topic_completed'];
+    biodata = userProfile['user']['biodata'];
+    image = userProfile['user']['avatar'];
+    achievement = userProfile['achievement'];
+    completedCourse = userProfile['compeltedCourse'];
+    level = 1 + exp ~/ 100;
+
+    final courseResponse = await http.post(
+      Uri.parse("https://nodejsdeployowl.et.r.appspot.com/getStudied"),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(
+        {
+          "access_token": accessToken,
+        },
+      ),
+    );
+
+    final bodyCourseResponse = jsonDecode(courseResponse.body)['data'];
+    ongoingCourse = bodyCourseResponse.entries.map((entry) {
+      return {
+        'name': entry.key,
+        ...entry.value,
+      };
+    }).toList();
   }
 
   static userLogOut() async {
