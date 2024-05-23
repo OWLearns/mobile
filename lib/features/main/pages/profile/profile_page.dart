@@ -28,6 +28,10 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  void loadProfile() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +78,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       InkWell(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const EditProfilePage(),
+                            builder: (context) => EditProfilePage(
+                              loadProfile: loadProfile,
+                            ),
                           ));
                         },
                         child: Container(

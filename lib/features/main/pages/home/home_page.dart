@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:mobile/features/main/pages/course/course_model.dart';
 import 'package:mobile/shared/themes/color.dart';
@@ -16,8 +15,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController searchController = TextEditingController();
-  late CourseCard? course1;
-  late CourseCard? course2;
+  CourseCard? course1;
+  CourseCard? course2;
 
   @override
   void initState() {

@@ -69,7 +69,7 @@ class UserAccess {
   }
 
   static editUser(String editUsername, String editBioData, jwt) async {
-    http.patch(
+    final response = await http.patch(
       Uri.parse("https://nodejsdeployowl.et.r.appspot.com/editProfile"),
       body: {
         "username": editUsername,

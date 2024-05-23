@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/features/main/pages/profile/profile_page.dart';
 import 'package:mobile/shared/themes/color.dart';
 import 'package:mobile/shared/utils/token_handler.dart';
 import 'package:mobile/shared/utils/user.dart';
 import 'package:mobile/shared/widgets/text_field.dart';
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({super.key});
+  final void Function() loadProfile;
+  const EditProfilePage({
+    required this.loadProfile,
+    super.key,
+  });
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -91,11 +94,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               usernameController.text, bioController.text, jwt)
                           .then(
                         (_) {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const ProfilePage(),
-                            ),
-                          );
+                          UserAccess.getUser(jwt!).then((_) {
+                            widget.loadProfile();
+                            Navigator.pop(context);
+                          });
                         },
                       );
                     },
