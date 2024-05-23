@@ -191,9 +191,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget buttonLoginWith(String text, String icon) {
     return InkWell(
       onTap: () {
-        LoginModel.loginOauth(text.toLowerCase()).then((value) => {
-              if (value) {Navigator.of(context).pushReplacementNamed('/main')}
-            });
+        // LoginModel.loginOauth(text.toLowerCase()).then((value) => {
+        //       if (value) {Navigator.of(context).pushReplacementNamed('/main')}
+        //     });
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
