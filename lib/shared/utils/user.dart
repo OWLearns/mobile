@@ -77,8 +77,5 @@ class UserAccess {
         "access_token": jwt,
       },
     );
-
-    print(response.statusCode);
-    print(response.body);
   }
 }
