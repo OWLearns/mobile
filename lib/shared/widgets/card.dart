@@ -28,6 +28,7 @@ class CourseCard extends StatelessWidget {
                 id: id,
                 nameCourse: label,
                 descCourse: desc,
+                imageCourse: image,
               ),
             ),
           );

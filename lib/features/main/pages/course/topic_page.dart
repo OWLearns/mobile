@@ -9,11 +9,13 @@ class TopicPage extends StatefulWidget {
   final int id;
   final String nameCourse;
   final String descCourse;
+  final String imageCourse;
   const TopicPage({
     super.key,
     required this.id,
     required this.nameCourse,
     required this.descCourse,
+    required this.imageCourse,
   });
 
   @override
@@ -73,7 +75,13 @@ class _TopicPageState extends State<TopicPage> {
                   ],
                 ),
                 const SizedBox(height: 15),
-                Center(child: Image.asset('assets/card/uiLogo.png')),
+                Center(
+                  child: Image.network(
+                    widget.imageCourse,
+                    width: 150,
+                    height: 150,
+                  ),
+                ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Text(

@@ -102,6 +102,7 @@ class _CoursePageState extends State<CoursePage> {
               id: dataCourse["id"],
               nameCourse: dataCourse["name"],
               descCourse: dataCourse["description"],
+              imageCourse: dataCourse["image"],
             ),
           ),
         );
