@@ -41,7 +41,7 @@ class UserAccess {
     biodata = userProfile['user']['biodata'];
     image = userProfile['user']['avatar'];
     achievement = userProfile['achievement'];
-    completedCourse = userProfile['compeltedCourse'];
+    completedCourse = userProfile['completedCourse'];
     level = 1 + exp ~/ 100;
 
     final courseResponse = await http.post(
@@ -77,5 +77,8 @@ class UserAccess {
         "access_token": jwt,
       },
     );
+
+    print(response.statusCode);
+    print(response.body);
   }
 }
